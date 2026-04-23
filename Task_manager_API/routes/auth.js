@@ -1,28 +1,23 @@
 const express = require('express')
 const router = express.Router()
+const User = require('../models/User')
 const bcrypt = require('bcryptjs')
-const users = []
 const jwt = require('jsonwebtoken')
 
 router.post('/register',async(req,res) => {
     const {name,email,password} = req.body
 
-    if (users.find(user => user.email === email)){
+    if (await User.findOne({ email })){
        return res.status(400).send('User already exists')
     }
     const hashedPassword = await bcrypt.hash(password,10)
-    const newUser = {
-        id:Date.now(),
-        name:name,
-        email:email,
-        password:hashedPassword
-    }
-    users.push(newUser)
+    const newUser = new User({name,email,password:hashedPassword})
+    await newUser.save()
     res.status(201).send('User registered successfully')
 })
 router.post('/login',async(req,res) => {
     const {name,email,password} = req.body
-    const isUser = users.find(user => user.email === email)
+    const isUser = await User.findOne({email})
     if(!isUser){
         return res.status(400).send('User not found')
     }else{
@@ -31,7 +26,7 @@ router.post('/login',async(req,res) => {
             return res.status(400).send("Incorrect password!")
         }
         const token = jwt.sign(
-            { id:isUser.id },
+            { id:isUser._id },
             'secretkey',
             {expiresIn:'1d'}
         )
