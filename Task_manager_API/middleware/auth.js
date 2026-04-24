@@ -4,7 +4,7 @@ const auth = (req, res, next) => {
     if(!token){
         return res.status(401).send('No token, access denied')
     }
-    const decoded = jwt.verify(token,'secretkey')
+    const decoded = jwt.verify(token,process.env.JWT_SECRET)
     if(!decoded){
         return res.status(401).send('Invalid token')
     }

@@ -1,6 +1,7 @@
+require('dotenv').config()
 const express = require('express')
 const app = express()
-const port = 3000
+const port = process.env.PORT || 3000
 const mongoose = require('mongoose')
 app.use(express.json())
 
@@ -13,7 +14,7 @@ app.get('/',(req,res)=>{
 app.use('/auth',authRoutes)
 app.use('/tasks',tasksRoutes)
 
-mongoose.connect('mongodb://localhost:27017/taskmanager')
+mongoose.connect(process.env.MONGO_URI)
     .then(()=>{console.log("Connected to MongoDB")})
     .catch(error => console.log(error))
 
