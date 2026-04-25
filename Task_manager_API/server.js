@@ -9,7 +9,7 @@ const authRoutes = require('./routes/auth')
 const tasksRoutes = require('./routes/tasks')
 
 app.get('/',(req,res)=>{
-    res.send('Hello world')
+    
 })
 app.use('/auth',authRoutes)
 app.use('/tasks',tasksRoutes)
