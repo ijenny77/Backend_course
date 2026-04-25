@@ -18,6 +18,7 @@ This repository contains my backend development learning projects built with Nod
 
 ## 📂 Projects Included
 - Task Manager API (CRUD operations, authentication, protected routes)
+- Notes App API (CRUD operations, authentication, user-specific notes, protected routes)
 
 ## 🎯 Goal
 To strengthen backend development skills by building practical and scalable API projects.
