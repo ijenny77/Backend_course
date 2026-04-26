@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken')
 
 router.post('/register',async(req,res)=>{
     const {name,email,password} = req.body
-    if(await findOne({email})){
+    if(await User.findOne({email})){
         return res.status(400).send('User already exists')
     }
     const hashedPassword = await bcrypt.hash(password,10)
@@ -15,8 +15,8 @@ router.post('/register',async(req,res)=>{
     res.status(201).send('User registered successfully')
 })  
 
-router.post('./login',async(req,res) => {
-    const {name,email,password} = req.body
+router.post('/login',async(req,res) => {
+    const {email,password} = req.body
     const isUser = await User.findOne({email})
     if(!isUser){
         return res.status(400).send('User not found')
