@@ -1,5 +1,22 @@
 require('dotenv').config()
 const express = require('express')
 const app = express()
+const cors = require('cors')
 const mongoose = require('mongoose')
-const port = process.env.PORT
+const port = process.env.PORT || 3000
+
+app.use(express.json())
+app.use(cors())
+const authRoutes = require('./routes/auth')
+app.get("/",(req,res)=>{
+
+})
+app.use('/auth',authRoutes)
+
+mongoose.connect(process.env.MONGO_URI)
+    .then(()=>console.log("Database connected"))
+    .catch(error => console.log(error))
+
+app.listen(port,()=>{
+    console.log(`Server listening on port ${port}`)
+})
