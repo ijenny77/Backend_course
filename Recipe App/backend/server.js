@@ -5,16 +5,19 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 const port = process.env.PORT || 3000
 
+
 app.use(express.json())
 app.use(cors())
 const authRoutes = require('./routes/auth')
+const recipesRoutes = require("./routes/recipe")
+app.use('/recipes', recipesRoutes)
 app.get("/",(req,res)=>{
 
 })
 app.use('/auth',authRoutes)
 
 mongoose.connect(process.env.MONGO_URI)
-    .then(()=>console.log("Database connected"))
+    .then(()=>console.log("Database connected:"))
     .catch(error => console.log(error))
 
 app.listen(port,()=>{
