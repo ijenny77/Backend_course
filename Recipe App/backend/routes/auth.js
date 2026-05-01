@@ -11,7 +11,6 @@ router.get('/me',auth,async(req,res)=>{
     res.json(user)
 })
 router.post('/register',async(req,res)=>{
-    console.log('Register attempt:', req.body)
     const {name, email,password,confirmPassword} = req.body
     if(password != confirmPassword){
         return res.status(400).send("Passwords do not match")
