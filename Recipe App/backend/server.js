@@ -12,7 +12,7 @@ const authRoutes = require('./routes/auth')
 const recipesRoutes = require("./routes/recipe")
 app.use('/recipes', recipesRoutes)
 app.get("/",(req,res)=>{
-
+    res.send("Recipe App API is running!")
 })
 app.use('/auth',authRoutes)
 
