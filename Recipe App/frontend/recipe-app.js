@@ -19,7 +19,7 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
         const email = document.getElementById('loginEmail').value
         const password = document.getElementById('loginPassword').value
         const rememberMe = document.getElementById('rememberMe').checked
-        const response = await fetch('http://localhost:3000/auth/login',{
+        const response = await fetch('https://recipe-app-api-zdpd.onrender.com/auth/login',{
             method:'POST',
             headers:{'Content-Type':'application/json'},
             body:JSON.stringify({email,password,rememberMe})
@@ -27,7 +27,7 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
         if(response.ok){
             const data = await response.json()
             localStorage.setItem('token', data.token) 
-            const userResponse = await fetch('http://localhost:3000/auth/me',{
+            const userResponse = await fetch('https://recipe-app-api-zdpd.onrender.com/auth/me',{
                 headers:{'Authorization':`Bearer ${data.token}`}
             })
             const user = await userResponse.json()
@@ -44,7 +44,7 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
     const email = document.getElementById('regEmail').value
     const password = document.getElementById("regPassword").value
     const confirmPassword = document.getElementById('regConfirmPassword').value
-    const response = await fetch('http://localhost:3000/auth/register',{
+    const response = await fetch('https://recipe-app-api-zdpd.onrender.com/auth/register',{
         method:'POST',
         headers:{'Content-Type':'application/json'},
         body:JSON.stringify({name,email,password,confirmPassword})
@@ -66,7 +66,7 @@ document.getElementById('logoutBtn').addEventListener('click', () => {
 // LOAD RECIPES
 async function loadRecipes() {
     const token = localStorage.getItem('token')
-    const response = await fetch('http://localhost:3000/recipes',{
+    const response = await fetch('https://recipe-app-api-zdpd.onrender.com/recipes',{
         headers:{'Authorization':`Bearer ${token}`}
     })
     const recipes = await response.json()
@@ -128,8 +128,8 @@ document.getElementById('addRecipeForm').addEventListener('submit', async (e) =>
     const ingredients = document.getElementById('ingredients').value
     const instructions = document.getElementById('instructions').value
     const url = editingId 
-        ? `http://localhost:3000/recipes/${editingId}`  // ← update
-        : 'http://localhost:3000/recipes'               // ← create
+        ? `https://recipe-app-api-zdpd.onrender.com/recipes/${editingId}`  // ← update
+        : 'https://recipe-app-api-zdpd.onrender.com/recipes'               // ← create
     const method = editingId ? 'PUT' : 'POST'           // ← method changes too
     const response = await fetch(url, {
         method: method,
@@ -164,7 +164,7 @@ async function deleteRecipe(id) {
     if(!confirmed) return  // ← stops if user clicks Cancel
 
     const token = localStorage.getItem('token')
-    const response = await fetch(`http://localhost:3000/recipes/${id}`, {
+    const response = await fetch(`https://recipe-app-api-zdpd.onrender.com/recipes/${id}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
     })
@@ -185,7 +185,7 @@ function showDashboard(name) {
 // Check if already logged in
 const token = localStorage.getItem('token')
 if(token) {
-    fetch('http://localhost:3000/auth/me', {
+    fetch('https://recipe-app-api-zdpd.onrender.com/auth/me', {
         headers: { 'Authorization': `Bearer ${token}` }
     })
     .then(r => r.json())

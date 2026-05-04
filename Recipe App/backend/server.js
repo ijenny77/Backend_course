@@ -18,7 +18,9 @@ app.use('/auth',authRoutes)
 
 mongoose.connect(process.env.MONGO_URI)
     .then(()=>console.log("Database connected:"))
-    .catch(error => console.log(error))
+    .catch(error => {
+        console.log("connecttion error:",error.message)
+    })
 
 app.listen(port,()=>{
     console.log(`Server listening on port ${port}`)
