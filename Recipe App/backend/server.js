@@ -22,6 +22,6 @@ mongoose.connect(process.env.MONGO_URI)
         console.log("connecttion error:",error.message)
     })
 
-app.listen(port,()=>{
+app.listen(port,()=>{z
     console.log(`Server listening on port ${port}`)
 })
