@@ -3,7 +3,9 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule, ConfigService } from '@nestjs/config'
 import { TypeOrmModule } from '@nestjs/typeorm'
-
+import { UsersModule } from './users/users.module';
+import { User } from './users/users.entity';
+import { AuthModule } from './auth/auth.module';
 @Module({
   imports: [
     ConfigModule.forRoot({isGlobal:true}),
@@ -13,10 +15,14 @@ import { TypeOrmModule } from '@nestjs/typeorm'
       useFactory:(config:ConfigService) => ({
         type:'better-sqlite3',
         database:config.get<string>('DATABASE_PATH'),
-        entities:[],
+        entities:[
+          User
+        ],
         synchronize:true,
       })
-    })
+    }),
+    UsersModule,
+    AuthModule
   ],
   controllers: [AppController],
   providers: [AppService],
