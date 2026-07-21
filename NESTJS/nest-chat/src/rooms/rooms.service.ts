@@ -3,13 +3,15 @@ import { CreateRoomDto } from './dto/create-room.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Room } from './rooms.entity';
 import { Repository } from 'typeorm';
+import { User } from 'src/users/users.entity';
 
 @Injectable()
 export class RoomsService {
     constructor(@InjectRepository(Room) private roomRepository:Repository<Room>){}
-    create(createRoomDto:CreateRoomDto){
+    create(createRoomDto:CreateRoomDto,userId){
         const newRoom = this.roomRepository.create({
-            name:createRoomDto.name
+            name:createRoomDto.name,
+            createdBy:{ id:userId } as User,
         })
         return this.roomRepository.save(newRoom)
     }

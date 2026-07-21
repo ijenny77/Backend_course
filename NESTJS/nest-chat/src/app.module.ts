@@ -7,6 +7,7 @@ import { UsersModule } from './users/users.module';
 import { User } from './users/users.entity';
 import { AuthModule } from './auth/auth.module';
 import { RoomsModule } from './rooms/rooms.module';
+import { Room } from './rooms/rooms.entity';
 @Module({
   imports: [
     ConfigModule.forRoot({isGlobal:true}),
@@ -17,14 +18,14 @@ import { RoomsModule } from './rooms/rooms.module';
         type:'better-sqlite3',
         database:config.get<string>('DATABASE_PATH'),
         entities:[
-          User
+          User,
+          Room
         ],
         synchronize:true,
       })
     }),
     UsersModule,
     AuthModule,
-    RoomModule,
     RoomsModule
   ],
   controllers: [AppController],
