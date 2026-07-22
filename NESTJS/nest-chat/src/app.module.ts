@@ -8,6 +8,7 @@ import { User } from './users/users.entity';
 import { AuthModule } from './auth/auth.module';
 import { RoomsModule } from './rooms/rooms.module';
 import { Room } from './rooms/rooms.entity';
+import { MessagesModule } from './messages/messages.module';
 @Module({
   imports: [
     ConfigModule.forRoot({isGlobal:true}),
@@ -26,7 +27,8 @@ import { Room } from './rooms/rooms.entity';
     }),
     UsersModule,
     AuthModule,
-    RoomsModule
+    RoomsModule,
+    MessagesModule
   ],
   controllers: [AppController],
   providers: [AppService],
