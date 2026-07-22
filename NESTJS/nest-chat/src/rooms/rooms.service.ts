@@ -18,4 +18,7 @@ export class RoomsService {
     findAll(){
         return this.roomRepository.find()
     }
+    findOne(id:string){
+        return this.roomRepository.findOneBy({id})
+    }
 }
